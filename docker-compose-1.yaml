@@ -1,0 +1,26 @@
+version: '3'
+services:
+  
+  nginx:
+    restart: always
+    build:
+      dockerfile: Dockerfile.dev
+      context: ./nginx
+    ports:
+      - '3050:80'
+  crypto-backend:
+    build:
+      dockerfile: Dockerfile.dev
+      context: ./crypto-backend
+    volumes:
+      - /app/node_modules
+      - ./server:/app
+    
+  crypto-frontend:
+    build:
+      dockerfile: Dockerfile.dev
+      context: ./crypto-frontend
+    volumes:
+      - /app/node_modules
+      - ./client:/app
+  
